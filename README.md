@@ -85,7 +85,7 @@ No real-world systems are targeted.
 
 ---
 
-## 🚀 Future Improvements
+## 🚀 Future Improvements Goal 
 
 - Add more machines across different services (HTTP, SSH, SMB)
 - Improve exploitation depth (beyond basic enumeration)
@@ -101,22 +101,13 @@ To evolve from basic CTF problem-solving into structured security analysis and p
 
 ---
 
-# 🧠 Why this README works (important)
+# 🧠 My Thinking
 
 This is not:
 - “I solved HTB boxes”
 
 This is:
 - **security learning pipeline documentation**
-- shows methodology (what recruiters care about)
-- scalable for 20–50 machines later
+- shows methodology
+- Record of my activity on HTB
 
----
-
-# 🚀 Next upgrade (if you want)
-
-I can help you next with:
-
-- 📄 a **perfect HTB_MACHINE_TEMPLATE.md (copy-paste for every box)**
-- 🧠 a **GitHub profile layout that looks internship-ready**
-- 🔥 or a **progression roadmap (FTP → web → privilege escalation)**
