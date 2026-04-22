@@ -1,5 +1,7 @@
 # HTB Starting Point - Fawn
 
+Fawn is a beginner-level HTB machine focused on FTP misconfiguration. It demonstrates anonymous access exploitation, basic enumeration, and file retrieval from an exposed FTP service.
+
 ## 1. Target Info
 - Machine: Fawn
 - OS: Unix (Linux-based)
