@@ -39,7 +39,7 @@ Each machine is approached using a consistent workflow:
 ---
 
 ## 📁 Repository Structure
-htb-labs/
+**htb-labs/
 │
 ├── README.md
 ├── templates/
@@ -49,7 +49,7 @@ htb-labs/
 │ ├── README.md # Full machine report
 │ ├── notes.md # Raw learning notes
 │ ├── nmap.txt # Scan results
-│ └── ftp_session.txt # Session logs
+│ └── ftp_session.txt # Session logs**
 
 
 Each folder represents a single machine with:
