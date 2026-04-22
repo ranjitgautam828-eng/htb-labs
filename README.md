@@ -38,21 +38,19 @@ Each machine is approached using a consistent workflow:
 
 ---
 
-## 📁 Repository Structure
+# 🧱 HTB Labs Structure
 
+```text
 htb-labs/
 │
 ├── README.md
-│
-├── templates/
-│   └── HTB_MACHINE_TEMPLATE.md
 │
 ├── Fawn_FTP_Anonymous_Access/
 │   ├── README.md
 │   ├── notes.md
 │   ├── nmap.txt
-│   └── ftp_session.txt
 
+```
 
 Each folder represents a single machine with:
 - Clean report (README.md)
