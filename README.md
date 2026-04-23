@@ -71,5 +71,5 @@ One folder per machine. One file per folder. No noise.
 ## Disclaimer
  
 All activity performed on legal, isolated lab environments provided by Hack The Box.
-No real-world systems targeted. For educational and portfolio purposes only.
+No real-world systems targeted. For educational purposes only.
  
