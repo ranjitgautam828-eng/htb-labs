@@ -16,25 +16,25 @@
  
 ## 2. Attack Path (Decision Chain ONLY)
  
-**Decision →** Identify exposed service and reduce attack surface
-**Why:** Single HTTP service means application logic is the only viable vector — no network enumeration required
-**Outcome:** Login interface confirmed as primary target
-**Learning:** Single-service exposure increases probability of logic-layer flaws — go straight to application behavior
+-**Decision →** Identify exposed service and reduce attack surface
+-**Why:** Single HTTP service means application logic is the only viable vector — no network enumeration required
+-**Outcome:** Login interface confirmed as primary target
+-**Learning:** Single-service exposure increases probability of logic-layer flaws — go straight to application behavior
  
-**Decision →** Test authentication boundary with generic input to observe error behavior
-**Why:** Determine whether backend validates credentials deterministically or exposes structural feedback
-**Outcome:** No meaningful error differentiation — backend behavior is opaque
-**Learning:** Uniform error responses on login forms often mask SQL-backed authentication logic
+-**Decision →** Test authentication boundary with generic input to observe error behavior
+-**Why:** Determine whether backend validates credentials deterministically or exposes structural feedback
+-**Outcome:** No meaningful error differentiation — backend behavior is opaque
+-**Learning:** Uniform error responses on login forms often mask SQL-backed authentication logic
  
-**Decision →** Apply SQL comment injection payload instead of credential guessing
-**Why:** Comment-based truncation removes password clause from query execution path entirely
-**Outcome:** Password validation stripped from query — authentication logic bypassed structurally
-**Learning:** Query truncation is deterministic; brute force is probabilistic — structural attacks always win when injection is present
+-**Decision →** Apply SQL comment injection payload instead of credential guessing
+-**Why:** Comment-based truncation removes password clause from query execution path entirely
+-**Outcome:** Password validation stripped from query — authentication logic bypassed structurally
+-**Learning:** Query truncation is deterministic; brute force is probabilistic — structural attacks always win when injection is present
  
-**Decision →** Validate post-injection session state
-**Why:** Confirm injection produced privilege-level access, not just error suppression
-**Outcome:** Admin session achieved — flag exposed
-**Learning:** Logic bypass vulnerabilities manifest as full auth state transitions, not partial access
+-**Decision →** Validate post-injection session state
+-**Why:** Confirm injection produced privilege-level access, not just error suppression
+-**Outcome:** Admin session achieved — flag exposed
+-**Learning:** Logic bypass vulnerabilities manifest as full auth state transitions, not partial access
  
 ---
  
