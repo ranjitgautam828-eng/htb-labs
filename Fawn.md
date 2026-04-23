@@ -1,127 +1,78 @@
 # Machine: Fawn
-
-* Environment: HTB (Starting Point)
-* Difficulty: Very Easy
-* Tags: FTP, Anonymous Access, Misconfiguration, File Exposure
-
+- **Environment:** HTB Lab
+- **Difficulty:** Very Easy
+- **Tags:** FTP, Anonymous Access, Misconfiguration, File Exposure, Linux
 ---
-
+ 
 ## 1. Executive Summary
-
-* FTP service exposed with anonymous login enabled
-* Access achieved without credentials via default configuration
-* Sensitive file (`flag.txt`) publicly accessible
-* Root cause: misconfigured FTP allowing unauthenticated access
-* Real-world impact: direct data exposure due to weak service configuration
-
+ 
+- **Vulnerability:** Anonymous FTP misconfiguration allowing unauthenticated access
+- **Entry vector:** Public FTP login with anonymous credentials
+- **Exploit result:** Direct file exposure and retrieval of sensitive artifact
+- **Root cause:** Disabled authentication boundary on file transfer service
+- **Real-world equivalent:** Exposed enterprise FTP server leaking internal data
 ---
-
-## 2. Attack Path (Reasoned Flow)
-
-### Step 1: Service Identification
-
-* Action: Network scan performed (Nmap)
-* Why: Identify open ports and services
-* Result: FTP detected on port 21 (vsftpd 3.0.3)
-* Insight: File transfer service exposed externally
-
+ 
+## 2. Attack Path (Decision Chain ONLY)
+ 
+**Decision →** Identify FTP service exposure
+**Why:** Open port indicates file transfer surface
+**Outcome:** Target class confirmed
+**Learning:** Service enumeration defines attack surface
+ 
+**Decision →** Test authentication boundary via default access mode
+**Why:** FTP commonly supports anonymous login — primary failure vector in legacy services
+**Outcome:** Authentication bypass succeeds
+**Learning:** Default credential logic is the first test against any legacy file service
+ 
+**Decision →** Enumerate exposed filesystem via directory listing
+**Why:** Anonymous access grants unauthenticated directory visibility
+**Outcome:** Sensitive file discovered in root directory
+**Learning:** Unauthenticated enumeration immediately reveals extraction path — no exploit needed
+ 
+**Decision →** Extract file using transfer primitive
+**Why:** FTP separates execution from transfer layer — no shell required
+**Outcome:** Local copy of target artifact obtained
+**Learning:** File transfer protocol bypasses shell execution requirement entirely — extraction IS the exploit
+ 
 ---
-
-### Step 2: Service Interaction
-
-* Action: Connected to FTP service
-* Why: Validate service behavior beyond scan results
-* Result: FTP login prompt received
-* Insight: Service is actively accepting connections
-
+ 
+## 3. High-Value Intelligence Layer
+ 
+**Recon**
+- File-transfer service identified as primary attack surface with no authentication gating at protocol level
+**Enumeration**
+- Anonymous access granted unrestricted directory visibility; sensitive file in root directory amplified exposure severity
+**Root Cause**
+- FTP daemon configured with anonymous auth enabled, no directory isolation, and sensitive artifacts stored in publicly reachable namespace
+**Security Fix**
+- Disable anonymous FTP; enforce authenticated sessions with chroot isolation on all shared directories
 ---
-
-### Step 3: Authentication Testing
-
-* Action: Attempted anonymous login
-* Why: Check default FTP misconfiguration
-* Result: Login successful without credentials
-* Insight: Anonymous access enabled (critical misconfiguration)
-
+ 
+## 4. Pattern Recognition Engine
+ 
+**Pattern: Anonymous Service Trust Failure**
+- **Signal:** Unauthenticated login accepted without credential validation
+- **Trigger:** Successful login with default anonymous identity
+- **Shortcut:** If service allows anonymous entry → assume full filesystem enumeration risk; skip to extraction
+- **Class:** FTP anonymous, Redis no-auth, MongoDB no-auth, SMB guest, LDAP null bind, Elasticsearch open HTTP
+**Pattern: File Exposure Without Exploit Requirement**
+- **Signal:** Sensitive file visible without privilege escalation
+- **Trigger:** Directory listing returns high-value artifact pre-auth
+- **Shortcut:** If file is readable pre-auth → skip exploitation phase entirely, proceed directly to extraction
 ---
-
-### Step 4: Enumeration
-
-* Action: Listed directory contents (`ls`)
-* Why: Identify accessible files
-* Result: `flag.txt` discovered
-* Insight: Sensitive file exposed in public directory
-
+ 
+## 5. Defensive Insight (Blue Team Mapping)
+ 
+- **Fix:** Disable anonymous authentication on FTP service; enforce credential-gated sessions only
+- **Control:** RBAC + chroot isolation on all file transfer services; remove sensitive artifacts from public namespaces
+- **Detection:** Alert on login events where username field is `anonymous` or `ftp` AND a file transfer (`RETR`) completes within the same session
 ---
-
-### Step 5: Data Extraction
-
-* Action: Downloaded file using FTP transfer command (`get`)
-* Why: Retrieve exposed file
-* Result: File successfully downloaded locally
-* Insight: No access control or restrictions in place
-
----
-
-## 3. Root Cause Analysis
-
-* Anonymous FTP login enabled
-* No authentication enforcement
-* Sensitive file stored in publicly accessible directory
-* Poor directory access control
-* Misconfiguration rather than exploit-based vulnerability
-
----
-
-## 4. Pattern Recognition
-
-### Vulnerability Pattern: Anonymous Service Exposure
-
-* Common in FTP, SMB, legacy storage services
-
-### Indicators:
-
-* Login possible without credentials
-* "anonymous" authentication accepted
-* Immediate file listing after login
-* No authentication barrier before access
-
-### Recognition Rule:
-
-If FTP (port 21) is open → always test anonymous login first
-
----
-
-## 5. Defensive Insight
-
-### Fixes:
-
-* Disable anonymous FTP access
-* Enforce authentication (credentials or key-based access)
-* Restrict directory permissions (least privilege)
-* Separate public vs private file storage
-
-### Monitoring:
-
-* Log anonymous FTP attempts
-* Alert on unauthorized file downloads
-* Monitor bulk file transfer activity
-
----
-
+ 
 ## 6. Mistakes & Corrections
-
-* Attempted `cat` inside FTP client
-
-  * Issue: FTP is not a shell environment
-  * Fix: Use `get` to download files
-
-* Initial assumption that authentication would be required
-
-  * Correction: Validated via anonymous login test
-
----
-
-## Final Outcome
-
-FTP misconfiguration allowed unauthenticated access, resulting in successful retrieval of exposed sensitive file. This highlights the importance of secure service configuration and access control enforcement.
+ 
+- **Mistake:** Attempting shell-based commands inside FTP session (e.g., `cat`)
+- **Cause:** Misclassification of protocol capability — FTP is transfer-only, not execution environment
+- **Fix:** Use `get` / `put` exclusively inside FTP sessions
+- **Future rule:** FTP = transfer interface only; never attempt shell execution within protocol boundary
+ 
