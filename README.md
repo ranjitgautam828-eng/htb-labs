@@ -1,113 +1,75 @@
-# 🛡️ Hack The Box (HTB) Labs
-
-This repository contains structured write-ups, notes, and analysis for Hack The Box Starting Point and beginner-level machines.
-
-The goal of this repo is not just to solve challenges, but to document the full security workflow:
-**Recon → Enumeration → Exploitation → Impact Analysis**
-
+# HTB Labs — Attack Intelligence Repository
+ 
+**Environment:** Hack The Box Starting Point + Progressive Machines
+**Status:** Active — updated continuously as machines are completed
+ 
 ---
-
-## 🎯 Purpose
-
-- Build hands-on cybersecurity skills (networking, Linux, exploitation basics)
-- Practice structured penetration testing documentation
-- Develop portfolio-ready security reports
-- Track learning progress across machines
-
+ 
+## What This Repository Is
+ 
+This is a structured security learning repository built on top of Hack The Box lab machines.
+ 
+Each machine completed produces a single intelligence report — not a walkthrough, not a command log.
+The reports reconstruct **why** the attack worked, not just **what** was run.
+ 
+The focus is on building reusable attacker thinking:
+- Recognizing vulnerability patterns before exploitation
+- Understanding root causes at the system level
+- Mapping attack paths to defensive controls
 ---
-
-## 🧠 Methodology
-
-Each machine is approached using a consistent workflow:
-
-1. **Reconnaissance**
-   - Network scanning (Nmap)
-   - Service and version identification
-
-2. **Enumeration**
-   - Service-specific investigation (FTP, HTTP, SSH, etc.)
-   - Access testing (e.g., anonymous login)
-
-3. **Exploitation**
-   - Misconfiguration or vulnerability exploitation
-   - File or data extraction
-
-4. **Post-Exploitation Analysis**
-   - Identify root cause of vulnerability
-   - Document security impact
-
+ 
+## What You Will Find Here
+ 
+For every machine completed, one write-up file containing:
+ 
+**Attack Decision Chain**
+The logical sequence of decisions that moved the attack forward — each step justified by what changed in the attacker's understanding of the target.
+ 
+**Pattern Recognition Engine**
+Abstract, reusable patterns extracted from each machine. Not machine-specific observations — portable mental models that apply across different services, environments, and difficulty levels.
+ 
+**Root Cause Analysis**
+Why the system was vulnerable at a technical and design level — not just what misconfiguration was present, but why that class of failure exists in real environments.
+ 
+**Blue Team Mapping**
+Specific fixes, class-level controls, and exact log events or monitoring signals that would detect the attack — written for a security analyst, not a student.
+ 
+**Mistakes & Decision Corrections**
+Real errors made during each machine — documented with root cause and a portable future rule. This section only exists when a real mistake occurred.
+ 
 ---
-
-# 🧱 HTB Labs Structure
-
+ 
+## Repository Structure
+ 
 ```text
 htb-labs/
 │
 ├── README.md
 │
-├── Fawn_FTP_Anonymous_Access/
-│   ├── README.md
-│   ├── notes.md
-│   ├── nmap.txt
-
+├── Fawn.md
+│
+├── Redeemer.md
+│
+├── Appointment.md
+│
+├── Sequel.md
+│
+└── [new machines added continuously]
 ```
-
-Each folder represents a single machine with:
-- Clean report (README.md)
-- Raw notes (notes.md)
-- Supporting artifacts (scan logs, sessions)
-
+ 
+One folder per machine. One file per folder. No noise.
+ 
 ---
-
-## 🧪 Machines Completed
-
-| Machine | Category | Key Focus |
-|----------|----------|-----------|
-| Fawn | FTP | Anonymous access misconfiguration |
-
+ 
+## What This Is Not
+ 
+- Not a step-by-step reproduction guide
+- Not a command reference or cheat sheet
+- Not a CTF solution dump
 ---
-
-## 🔐 Key Learning Areas
-
-- Network scanning and service discovery
-- FTP protocol behavior and limitations
-- Anonymous authentication risks
-- File enumeration and retrieval techniques
-- Basic vulnerability analysis and reporting
-
----
-
-## ⚠️ Disclaimer
-
-All content in this repository is based on legal, controlled environments provided by Hack The Box for educational purposes only.
-
-No real-world systems are targeted.
-
----
-
-## 🚀 Future Improvements Goal 
-
-- Add more machines across different services (HTTP, SSH, SMB)
-- Improve exploitation depth (beyond basic enumeration)
-- Introduce privilege escalation analysis
-- Develop structured attack decision trees
-
----
-
-## 📌 Goal
-
-To evolve from basic CTF problem-solving into structured security analysis and professional-level penetration testing documentation.
-```
-
----
-
-# 🧠 My Thinking
-
-This is not:
-- “I solved HTB boxes”
-
-This is:
-- **security learning pipeline documentation**
-- shows methodology
-- Record of my activity on HTB
-
+ 
+## Disclaimer
+ 
+All activity performed on legal, isolated lab environments provided by Hack The Box.
+No real-world systems targeted. For educational and portfolio purposes only.
+ 
