@@ -42,10 +42,13 @@
  
 **Recon**
 - Non-web infrastructure exposed externally; in-memory datastore presence signals high-risk misconfiguration class — attack surface shifts from OS exploitation to data-layer direct access
+
 **Enumeration**
 - Key discovery confirms absence of segmentation or RBAC; all stored objects globally readable — exploit direction collapses from probing to direct extraction
+
 **Root Cause**
 - Redis deployed without `requirepass`, bound to `0.0.0.0` instead of localhost, and no firewall rule blocking port 6379 externally — three independent control failures each sufficient to cause full exposure independently
+
 **Security Fix**
 - Set `requirepass` + `bind 127.0.0.1` in `redis.conf`; block port 6379 at network perimeter; add TLS if Redis must communicate across network boundaries
 ---
